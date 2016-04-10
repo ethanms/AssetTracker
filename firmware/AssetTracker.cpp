@@ -6,20 +6,20 @@
 //#define mySerial Serial1
 //Adafruit_GPS gps(&mySerial);
 Adafruit_GPS gps = Adafruit_GPS();
-Adafruit_LIS3DH accel = Adafruit_LIS3DH(A2, A5, A4, A3);
+//Adafruit_LIS3DH accel = Adafruit_LIS3DH(A2, A5, A4, A3);
 
 AssetTracker::AssetTracker(){
 
 }
 
 void AssetTracker::begin(){
-    accel.begin(LIS3DH_DEFAULT_ADDRESS);
+//    accel.begin(LIS3DH_DEFAULT_ADDRESS);
     
     // Default to 5kHz low-power sampling
-    accel.setDataRate(LIS3DH_DATARATE_LOWPOWER_5KHZ);
+//    accel.setDataRate(LIS3DH_DATARATE_LOWPOWER_5KHZ);
     
     // Default to 4 gravities range
-    accel.setRange(LIS3DH_RANGE_4_G);
+//    accel.setRange(LIS3DH_RANGE_4_G);
     
     // Turn on the GPS module
     // gpsOn();
@@ -40,7 +40,7 @@ String AssetTracker::readLatLon(){
 
 void AssetTracker::gpsOn(){
     // Power to the GPS is controlled by a FET connected to D6
-    pinMode(D6,OUTPUT);
+ //   pinMode(D6,OUTPUT);
     digitalWrite(D6,LOW);
     gps.begin(4800);
     gps.sendCommand(PMTK_SET_NMEA_OUTPUT_RMCGGA);
@@ -90,28 +90,6 @@ void AssetTracker::updateGPS(){
     }
   }
 }
-
-int AssetTracker::readX(){
-    accel.read();
-    return accel.x;
-}
-
-int AssetTracker::readY(){
-    accel.read();
-    return accel.y;
-}
-
-int AssetTracker::readZ(){
-    accel.read();
-    return accel.z;
-}
-
-int AssetTracker::readXYZmagnitude(){
-    accel.read();
-    int magnitude = sqrt((accel.x*accel.x)+(accel.y*accel.y)+(accel.z*accel.z));
-    return magnitude;
-}
-
 
 
 /***********************************
