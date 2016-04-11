@@ -8,11 +8,11 @@
 Adafruit_GPS gps = Adafruit_GPS();
 //Adafruit_LIS3DH accel = Adafruit_LIS3DH(A2, A5, A4, A3);
 
-AssetTracker::AssetTracker(){
+AssetTrackerGP2106::AssetTrackerGP2106(){
 
 }
 
-void AssetTracker::begin(){
+void AssetTrackerGP2106::begin(){
 //    accel.begin(LIS3DH_DEFAULT_ADDRESS);
     
     // Default to 5kHz low-power sampling
@@ -25,20 +25,20 @@ void AssetTracker::begin(){
     // gpsOn();
 }
 
-float AssetTracker::readLat(){
+float AssetTrackerGP2106::readLat(){
     return gps.latitude;
 }
 
-float AssetTracker::readLon(){
+float AssetTrackerGP2106::readLon(){
     return gps.longitude;
 }
 
-String AssetTracker::readLatLon(){
+String AssetTrackerGP2106::readLatLon(){
     String latLon = String::format("%f,%f",gps.latitudeDegrees,gps.longitudeDegrees);
     return latLon;
 }
 
-void AssetTracker::gpsOn(){
+void AssetTrackerGP2106::gpsOn(){
     // Power to the GPS is controlled by a FET connected to D6
  //   pinMode(D6,OUTPUT);
     digitalWrite(D6,LOW);
@@ -52,15 +52,15 @@ void AssetTracker::gpsOn(){
     delay(500);
 }
 
-void AssetTracker::gpsOff(){
+void AssetTrackerGP2106::gpsOff(){
     digitalWrite(D6,HIGH);
 }
 
-char* AssetTracker::preNMEA(){
+char* AssetTrackerGP2106::preNMEA(){
     return gps.lastNMEA();
 }
 
-bool AssetTracker::gpsFix(){
+bool AssetTrackerGP2106::gpsFix(){
     if(gps.latitude == 0.0){
         return false;
     }
@@ -75,7 +75,7 @@ bool AssetTracker::gpsFix(){
 //     return c;
 // }
 
-void AssetTracker::updateGPS(){
+void AssetTrackerGP2106::updateGPS(){
     char c = gps.read();
       // if a sentence is received, we can check the checksum, parse it...
   if (gps.newNMEAreceived()) {
