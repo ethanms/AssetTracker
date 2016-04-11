@@ -1,4 +1,4 @@
-#include "AssetTracker.h"
+#include "AssetTrackerGP2106.h"
 #include "math.h"
 
 //----------------- Tracker ----------------//
