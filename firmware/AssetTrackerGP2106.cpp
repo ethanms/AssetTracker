@@ -13,13 +13,13 @@ AssetTrackerGP2106::AssetTrackerGP2106(){
 }
 
 void AssetTrackerGP2106::begin(){
-//    accel.begin(LIS3DH_DEFAULT_ADDRESS);
+    accel.begin(LIS3DH_DEFAULT_ADDRESS);
     
     // Default to 5kHz low-power sampling
-//    accel.setDataRate(LIS3DH_DATARATE_LOWPOWER_5KHZ);
+    accel.setDataRate(LIS3DH_DATARATE_LOWPOWER_5KHZ);
     
     // Default to 4 gravities range
-//    accel.setRange(LIS3DH_RANGE_4_G);
+    accel.setRange(LIS3DH_RANGE_4_G);
     
     // Turn on the GPS module
     // gpsOn();
@@ -33,6 +33,14 @@ float AssetTrackerGP2106::readLon(){
     return gps.longitude;
 }
 
+float AssetTrackerGP2106::readDecLat(){
+    return gps.latitudeDegrees;
+}
+
+float AssetTrackerGP2106::readDecLon(){
+    return gps.longitudeDegrees;
+}
+
 String AssetTrackerGP2106::readLatLon(){
     String latLon = String::format("%f,%f",gps.latitudeDegrees,gps.longitudeDegrees);
     return latLon;
@@ -40,9 +48,9 @@ String AssetTrackerGP2106::readLatLon(){
 
 void AssetTrackerGP2106::gpsOn(){
     // Power to the GPS is controlled by a FET connected to D6
- //   pinMode(D6,OUTPUT);
+    pinMode(D6,OUTPUT);
     digitalWrite(D6,LOW);
-    gps.begin(4800);
+    gps.begin(9600);
     gps.sendCommand(PMTK_SET_NMEA_OUTPUT_RMCGGA);
     delay(500);
     // Default is 1 Hz update rate
@@ -78,7 +86,7 @@ bool AssetTrackerGP2106::gpsFix(){
 void AssetTrackerGP2106::updateGPS(){
     char c = gps.read();
       // if a sentence is received, we can check the checksum, parse it...
-  if (gps.newNMEAreceived()) {
+    if (gps.newNMEAreceived()) {
     // a tricky thing here is if we print the NMEA sentence, or data
     // we end up not listening and catching other sentences! 
     // so be very wary if using OUTPUT_ALLDATA and trytng to print out data
