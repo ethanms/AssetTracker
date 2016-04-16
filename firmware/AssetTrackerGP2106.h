@@ -22,7 +22,9 @@ class AssetTrackerGP2106 {
     readXYZmagnitude(void);
   float
     readLat(void),
-    readLon(void);
+    readLon(void),
+    readDecLat(void),
+    readDecLon(void);
   bool
     gpsFix(void);
   char
